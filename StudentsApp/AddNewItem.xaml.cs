@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,14 @@ namespace StudentsApp
         public AddNewItem()
         {
             InitializeComponent();
+            this.DataContext = new Student() {Age = 16, Id = 13, Gender = 1 };
+        }
+
+        private void SubmitProduct(object sender, RoutedEventArgs e)
+        {
+            var student = (Student)this.DataContext;
+
+            ((MainWindow)this.Owner).AddStudent(student);
         }
     }
 }

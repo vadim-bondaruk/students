@@ -63,10 +63,11 @@ namespace StudentsApp
 
         private void OpenAddStudentWindow(object sender, RoutedEventArgs e)
         {
-            var max = source.Select(x => x.Id).Max();
-            source.Add(new Student { Id = max+1, FirstName = "Arnold", Last = "Ramsy", Age = 12, Gender = 1 });
-            students.UpdateLayout();
+            //var max = source.Select(x => x.Id).Max();
+            //source.Add(new Student { Id = max+1, FirstName = "Arnold", Last = "Ramsy", Age = 12, Gender = 1 });
+
             AddNewItem newItemWindow = new AddNewItem();
+            newItemWindow.Owner = this;
             newItemWindow.ShowDialog();
         }
 
@@ -74,6 +75,11 @@ namespace StudentsApp
         {
             get { return this.source; }
             set { this.source = value; }
+        }
+
+        public void AddStudent(Student student)
+        {
+            source.Add(student);
         }
     }
 }
