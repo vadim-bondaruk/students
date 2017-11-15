@@ -3,51 +3,49 @@
   <Student Id="0">
     <FirstName>Robert</FirstName>
     <Last>Jarman</Last>
+    <Age>16</Age>
     <Gender>0</Gender>
   </Student>
   <Student Id="1">
     <FirstName>Leona</FirstName>
     <Last>Menders</Last>
+    <Age>16</Age>
     <Gender>1</Gender>
   </Student>
   <Student Id="2">
     <FirstName>Helen</FirstName>
     <Last>Wilson</Last>
+    <Age>16</Age>
     <Gender>1</Gender>
   </Student>
   <Student Id="3">
     <FirstName>John</FirstName>
     <Last>Smith</Last>
+    <Age>16</Age>
     <Gender>0</Gender>
   </Student>
   <Student Id="4">
     <FirstName>Алексей</FirstName>
     <Last>Дроздов</Last>
+    <Age>16</Age>
     <Gender>0</Gender>
   </Student>
   <Student Id="5">
     <FirstName>Вадим</FirstName>
     <Last>Халтурин</Last>
+    <Age>16</Age>
     <Gender>0</Gender>
   </Student>
   <Student Id="6">
     <FirstName>Анна</FirstName>
     <Last>Говорухина</Last>
+    <Age>16</Age>
     <Gender>1</Gender>
   </Student>
   <Student Id="7">
     <FirstName>Александр</FirstName>
     <Last>Иванов</Last>
-    <Gender>0</Gender>
-  </Student>
-  <Student Id="10">
-    <FirstName>Valera</FirstName>
-    <Last>XUI</Last>
-    <Gender>0</Gender>
-  </Student>
-  <Student Id="10">
-    <FirstName>Valera</FirstName>
-    <Last>XUI</Last>
+    <Age>16</Age>
     <Gender>0</Gender>
   </Student>
 </Students>

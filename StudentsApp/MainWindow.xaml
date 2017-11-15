@@ -5,10 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentsApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Height="450" Width="400"
+        Title="List of Students"
+        SizeToContent="Height" 
+        ResizeMode="NoResize">
     <Grid>
-        <DataGrid x:Name="students">
-            
-        </DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="students" Grid.Row="2" Grid.ColumnSpan="3" Margin="8" AlternationCount="2">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Margin" Value="5,3"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Background" Value="LightSteelBlue"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                         BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                        <Setter Property="Background" Value="Orange"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="LimeGreen"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock FontSize="16" Margin="5" Text="{Binding Path=Id}" />
+                        <TextBlock FontSize="16" Margin="5" Text="{Binding Path=FirstName}"  />
+                        <TextBlock FontSize="16" Margin="5" Text="{Binding Path=Last}"  />
+                        <TextBlock FontSize="16" Margin="5" Text="{Binding Path=Age}"  />
+                        <TextBlock FontSize="16" Margin="5" Text="{Binding Path=Gender}"  />
+                    </StackPanel>
+                   
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Name="OpenAddStudent" Grid.Row="3" Grid.Column="1" Content="Add Student" HorizontalAlignment="Center" Margin="8" 
+            Click="OpenAddStudentWindow" />
     </Grid>
+
 </Window>
