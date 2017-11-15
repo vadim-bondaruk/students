@@ -32,12 +32,7 @@ namespace StudentsApp
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //XDocument doc = new XDocument(@"C:\Users\msi\Downloads\C#_\Students.xml");
 
-            //foreach (var item in doc.Elements("Student"))
-            //{
-
-            //}
             List<Student> elements = new List<Student>();
             XmlRootAttribute xRoot = new XmlRootAttribute();
             xRoot.ElementName = "Students";
@@ -56,6 +51,8 @@ namespace StudentsApp
             {
                 serializer.Serialize(writer, elements);
             }
+
+            students.ItemsSource = elements;
         }
     }
 }

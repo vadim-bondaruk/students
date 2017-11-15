@@ -45,4 +45,9 @@
     <Last>XUI</Last>
     <Gender>0</Gender>
   </Student>
+  <Student Id="10">
+    <FirstName>Valera</FirstName>
+    <Last>XUI</Last>
+    <Gender>0</Gender>
+  </Student>
 </Students>
