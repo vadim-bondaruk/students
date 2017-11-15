@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AgeRule.cs" />
     <Page Include="AddNewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Student.cs" />
+    <Compile Include="NameRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

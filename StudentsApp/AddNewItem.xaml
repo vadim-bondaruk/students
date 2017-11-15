@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentsApp"
+        xmlns:stts="clr-namespace:StudentsApp"
         mc:Ignorable="d"
         Title="AddNewItem" Height="300" Width="300">
-   
+    <Window.Resources>
+        <ControlTemplate x:Key="validationFailed">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Violet" BorderThickness="2">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -23,17 +43,49 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Name="StartPriceEntryForm" Grid.Row="1" Grid.Column="1" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}"
-                  Margin="5">
-        </TextBox>
 
-        <TextBlock Grid.Row="1" Grid.Column="0"  Margin="5">FirstName:</TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="0"  Margin="5" Height="30">FirstName:</TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="0"  Margin="5">LastName:</TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0"  Margin="5">Age:</TextBlock>
         <!--<SnippetCustomValidation>-->
-        <TextBox Name="StartDateEntryForm" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Last, UpdateSourceTrigger=PropertyChanged}"
-                       Margin="5">
+        <TextBox Name="FirstName" Grid.Row="1" Grid.Column="1" Margin="5 5 15 0" Height="30" Validation.ErrorTemplate="{StaticResource validationFailed}">
+            <TextBox.Text>
+                <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:NameRule></local:NameRule>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
         </TextBox>
-        <TextBox Name="tbValue" Grid.Row="3"  Grid.Column="1" Margin="5" Validation.ErrorTemplate="{StaticResource validationTemplate}"/>
+        <TextBox Name="LastName" Grid.Row="2" Grid.Column="1" Margin="5 5 15 0" Height="30" Validation.ErrorTemplate="{StaticResource validationFailed}">
+            <TextBox.Text>
+                <Binding Path="Last" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:NameRule></local:NameRule>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Name="Age" Grid.Row="3"  Grid.Column="1" Margin="5 5 15 0" Height="30" Validation.ErrorTemplate="{StaticResource validationFailed}">
+            <TextBox.Text>
+                <Binding Path="Age" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:AgeRule></local:AgeRule>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <DockPanel LastChildFill="True">
+            <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="14" FontWeight="Bold"
+                       ToolTip="{Binding ElementName=adornerPlaceholder, 
+                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+
+        </DockPanel>
+
         <Button Name="Submit" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Content="Submit" Margin="5" Click="SubmitProduct"/>
         <!--</SnippetCustomValidation>-->
     </Grid>

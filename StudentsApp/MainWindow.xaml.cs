@@ -36,7 +36,7 @@ namespace StudentsApp
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
-            string path = @"e:\Students\students\StudentsApp\Data\Students.xml";
+            string path = @"D:\PROJECTS\StudentsApp\StudentsApp\Data\Students.xml";
             List<Student> elements = new List<Student>();
             XmlRootAttribute xRoot = new XmlRootAttribute();
             xRoot.ElementName = "Students";

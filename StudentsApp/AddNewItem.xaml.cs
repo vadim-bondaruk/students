@@ -23,14 +23,28 @@ namespace StudentsApp
         public AddNewItem()
         {
             InitializeComponent();
-            this.DataContext = new Student() {Age = 16, Id = 13, Gender = 1 };
+            this.DataContext = new Student() {Id = 13, Gender = 1 };
         }
 
         private void SubmitProduct(object sender, RoutedEventArgs e)
         {
+            FirstName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            LastName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            Age.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+
+            if (Validation.GetHasError(FirstName) || 
+                Validation.GetHasError(LastName) ||
+                Validation.GetHasError(Age))
+            {
+                return;
+            }
+
             var student = (Student)this.DataContext;
 
             ((MainWindow)this.Owner).AddStudent(student);
+
+            this.Close();
         }
+
     }
 }
