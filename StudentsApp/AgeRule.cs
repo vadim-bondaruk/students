@@ -19,8 +19,9 @@ namespace StudentsApp
                 age = Int32.Parse((string)value);
             }
             catch
+
             {
-                return new ValidationResult(false, "Недопустимые символы.");
+                return new ValidationResult(true, null);
             }
 
             if ((age < 16) || (age > 100))
@@ -28,10 +29,8 @@ namespace StudentsApp
                 return new ValidationResult(false,
                   "Возраст не входит в диапазон " + 16 + " до " + 100 + ".");
             }
-            else
-            {
-                return new ValidationResult(true, null);
-            }
+
+            return new ValidationResult(true, null);
         }
     }
 }

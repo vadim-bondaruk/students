@@ -1,4 +1,4 @@
-﻿<Window x:Class="StudentsApp.AddNewItem"
+﻿<Window x:Class="StudentsApp.AddEditNewItem"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -48,6 +48,7 @@
         <TextBlock Grid.Row="1" Grid.Column="0"  Margin="5" Height="30">FirstName:</TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="0"  Margin="5">LastName:</TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="0"  Margin="5">Age:</TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0"  Margin="5">Sex:</TextBlock>
         <!--<SnippetCustomValidation>-->
         <TextBox Name="FirstName" Grid.Row="1" Grid.Column="1" Margin="5 5 15 0" Height="30" Validation.ErrorTemplate="{StaticResource validationFailed}">
             <TextBox.Text>
@@ -79,6 +80,9 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
+        <ComboBox Name="Sex" Margin="5 5 15 0" Height="30" Grid.Row="4" SelectedItem="{Binding Path=Gender}" Grid.Column="1">
+            
+        </ComboBox>
         <DockPanel LastChildFill="True">
             <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="14" FontWeight="Bold"
                        ToolTip="{Binding ElementName=adornerPlaceholder, 
@@ -86,7 +90,7 @@
 
         </DockPanel>
 
-        <Button Name="Submit" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Content="Submit" Margin="5" Click="SubmitProduct"/>
+        <Button Name="Submit" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Content="Add" Margin="5" Click="SubmitProduct"/>
         <!--</SnippetCustomValidation>-->
     </Grid>
 </Window>

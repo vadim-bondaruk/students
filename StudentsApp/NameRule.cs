@@ -18,7 +18,7 @@ namespace StudentsApp
             if (string.IsNullOrWhiteSpace(strValue))
                 return new ValidationResult(false, "Поле обязательно для заполнения");
 
-            string pattern = @"[a-zA-z]+([ '-][a-zA-Z]+)*";
+            string pattern = @"[a-zA-zа-яА-Я]+([ '-][a-zA-Zа-яА-Я]+)*";
 
             Regex regex = new Regex(pattern);
 

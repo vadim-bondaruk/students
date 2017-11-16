@@ -18,12 +18,12 @@ namespace StudentsApp
     /// <summary>
     /// Interaction logic for AddNewItem.xaml
     /// </summary>
-    public partial class AddNewItem : Window
+    public partial class AddEditNewItem : Window
     {
-        public AddNewItem()
+        public AddEditNewItem()
         {
             InitializeComponent();
-            this.DataContext = new Student() {Id = 13, Gender = 1 };
+            Sex.ItemsSource = Enum.GetValues(typeof(Sex)).Cast<Sex>();
         }
 
         private void SubmitProduct(object sender, RoutedEventArgs e)
@@ -39,9 +39,8 @@ namespace StudentsApp
                 return;
             }
 
-            var student = (Student)this.DataContext;
+            this.DialogResult = true;
 
-            ((MainWindow)this.Owner).AddStudent(student);
 
             this.Close();
         }

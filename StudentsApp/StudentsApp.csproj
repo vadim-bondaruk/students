@@ -55,7 +55,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AgeRule.cs" />
-    <Page Include="AddNewItem.xaml">
+    <Compile Include="CustomXmlDataContext.cs" />
+    <Compile Include="Interfaces\IDataContext.cs" />
+    <Compile Include="Sex.cs" />
+    <Page Include="AddEditNewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -63,8 +66,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddNewItem.xaml.cs">
-      <DependentUpon>AddNewItem.xaml</DependentUpon>
+    <Compile Include="AddEditNewItem.xaml.cs">
+      <DependentUpon>AddEditNewItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

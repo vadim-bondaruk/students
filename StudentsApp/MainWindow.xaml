@@ -23,7 +23,19 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="students" Grid.Row="2" Grid.ColumnSpan="3" Margin="8" AlternationCount="2">
+        <TextBlock  FontStyle="Italic" FontSize="12" Text="List is empty" Grid.Row="2" Grid.Column="1" Margin="10" Panel.ZIndex="100" >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=StudentsList, Path=Items.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ListBox x:Name="StudentsList" Grid.Row="2" Grid.ColumnSpan="3" Margin="8" AlternationCount="2" SelectionMode="Multiple">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Margin" Value="5,3"/>
@@ -65,8 +77,36 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Name="OpenAddStudent" Grid.Row="3" Grid.Column="1" Content="Add Student" HorizontalAlignment="Center" Margin="8" 
+        <Button Name="OpenAddStudent" Grid.Row="3" Width="80" Grid.Column="0" Content="Add Student" HorizontalAlignment="Center" Margin="8" 
             Click="OpenAddStudentWindow" />
+        <Button Name="DeleteStudentBtn" Grid.Row="3" Width="80" Grid.Column="1" Content="Delete" HorizontalAlignment="Center" Margin="8" 
+            Click="DeleteStudents">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="True" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=StudentsList, Path=Items.Count}" Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+        </Button>
+        <Button Name="EditStudentBtn" Grid.Row="3" Width="80" Grid.Column="2" Content="Edit" HorizontalAlignment="Center" Margin="8" 
+            Click="EditStudent">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="True" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=StudentsList, Path=Items.Count}" Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+        </Button>
     </Grid>
 
 </Window>

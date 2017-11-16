@@ -1,21 +1,10 @@
-﻿using StudentsApp.Models;
-using System;
+﻿using StudentsApp.Interfaces;
+using StudentsApp.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace StudentsApp
@@ -27,6 +16,8 @@ namespace StudentsApp
     {
 
         private ObservableCollection<Student> source = null;
+        private IDataContext<Student> _context;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,51 +26,68 @@ namespace StudentsApp
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
             string path = @"D:\PROJECTS\StudentsApp\StudentsApp\Data\Students.xml";
-            List<Student> elements = new List<Student>();
-            XmlRootAttribute xRoot = new XmlRootAttribute();
-            xRoot.ElementName = "Students";
-            xRoot.IsNullable = true;
+            _context = new CustomXmlDataContext(path);
+            source = _context.GetAll();
 
-            var serializer = new XmlSerializer(typeof(List<Student>), xRoot);
-
-            using (var reader = new StreamReader(path))
-            {
-                 elements = (List<Student>)serializer.Deserialize(reader);
-            }
-
-            source = new ObservableCollection<Student>(elements);
-            //elements.Add(new Student { Id = 10, FirstName = "Valera", Gender = 0, Last = "XUI" });
-
-            //using (var writer = new StreamWriter(path))
-            //{
-            //    serializer.Serialize(writer, elements);
-            //}
-
-            students.ItemsSource = source;
-            students.UpdateLayout();
+            StudentsList.ItemsSource = source;
         }
 
         private void OpenAddStudentWindow(object sender, RoutedEventArgs e)
         {
-            //var max = source.Select(x => x.Id).Max();
-            //source.Add(new Student { Id = max+1, FirstName = "Arnold", Last = "Ramsy", Age = 12, Gender = 1 });
 
-            AddNewItem newItemWindow = new AddNewItem();
+            AddEditNewItem newItemWindow = new AddEditNewItem();
             newItemWindow.Owner = this;
-            newItemWindow.ShowDialog();
+            newItemWindow.DataContext = new Student { Gender = Sex.Male, Id = -1 };
+            if (newItemWindow.ShowDialog().Value)
+            {
+                var student = (Student)newItemWindow.DataContext;
+                _context.AddOrUpdate(student);
+                _context.SaveChanges();
+            }
         }
 
-        public ObservableCollection<Student> Students
+        private void DeleteStudents(object sender, RoutedEventArgs e)
         {
-            get { return this.source; }
-            set { this.source = value; }
+            
+            var students = StudentsList.SelectedItems.Cast<Student>().ToList();
+
+            if (students.Count > 0)
+            {
+               if( MessageBox.Show(this, "Are you sure you want to delete item (items)?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    students.ForEach(s => _context.Delete(s));
+                    _context.SaveChanges();
+                }
+            }
         }
 
-        public void AddStudent(Student student)
+        private void EditStudent(object sender, RoutedEventArgs e)
         {
-            source.Add(student);
+            var students = StudentsList.SelectedItems.Cast<Student>().ToList();
+
+            if (students.Count < 1)
+            {
+                MessageBox.Show(this, "Plese select item", "Info", MessageBoxButton.OK);
+                return;
+            }
+
+            if (students.Count > 1)
+            {
+                MessageBox.Show(this, "Plese select only one item", "Info", MessageBoxButton.OK);
+                return;
+            }
+
+            AddEditNewItem editewItemWindow = new AddEditNewItem();
+            editewItemWindow.Owner = this;
+
+            editewItemWindow.DataContext = students.First();
+            if (editewItemWindow.ShowDialog().Value)
+            {
+                var student = (Student)editewItemWindow.DataContext;
+                _context.AddOrUpdate(student);
+                _context.SaveChanges();
+            }
         }
     }
 }
