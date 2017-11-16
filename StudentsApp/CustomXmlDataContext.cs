@@ -15,12 +15,14 @@ namespace StudentsApp
     {
         private ObservableCollection<Student> _items;
         private List<Student> _proxy;
-        private string _path;  
+        private string _path;
+        private XmlSerializer _serializer;
 
 
         public CustomXmlDataContext(string path)
         {
             _path = path;
+            ConfigureSerializer();
             LoadData();
             _proxy = _items.ToList();
         }
@@ -50,16 +52,10 @@ namespace StudentsApp
 
         public void SaveChanges()
         {
-            List<Student> elements = new List<Student>();
-            XmlRootAttribute xRoot = new XmlRootAttribute();
-            xRoot.ElementName = "Students";
-            xRoot.IsNullable = true;
-
-            var serializer = new XmlSerializer(typeof(List<Student>), xRoot);
 
             using (var writer = new StreamWriter(_path))
             {
-                serializer.Serialize(writer, _proxy);
+                _serializer.Serialize(writer, _proxy);
             }
 
             var unique = _proxy.Except(_items);
@@ -85,18 +81,24 @@ namespace StudentsApp
         private void LoadData()
         {
             List<Student> elements = new List<Student>();
-            XmlRootAttribute xRoot = new XmlRootAttribute();
-            xRoot.ElementName = "Students";
-            xRoot.IsNullable = true;
-
-            var serializer = new XmlSerializer(typeof(List<Student>), xRoot);
 
             using (var reader = new StreamReader(_path))
             {
-                elements = (List<Student>)serializer.Deserialize(reader);
+                elements = (List<Student>)_serializer.Deserialize(reader);
             }
 
             _items = new ObservableCollection<Student>(elements);
         }
+
+        private void ConfigureSerializer()
+        {
+           
+            XmlRootAttribute xRoot = new XmlRootAttribute();
+            xRoot.ElementName = "Students";
+            xRoot.IsNullable = true;
+
+            _serializer = new XmlSerializer(typeof(List<Student>), xRoot);
+        }
+       
     }
 }

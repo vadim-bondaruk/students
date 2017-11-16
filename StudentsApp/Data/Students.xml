@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Student Id="0">
-    <FirstName>test</FirstName>
-    <Last>test</Last>
-    <Age>44</Age>
-    <Gender>0</Gender>
-  </Student>
-  <Student Id="1">
-    <FirstName>wer</FirstName>
-    <Last>wer</Last>
-    <Age xsi:nil="true" />
-    <Gender>1</Gender>
-  </Student>
-</Students>
+<Students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />

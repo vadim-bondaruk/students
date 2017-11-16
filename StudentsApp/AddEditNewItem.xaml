@@ -43,8 +43,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-
-
         <TextBlock Grid.Row="1" Grid.Column="0"  Margin="5" Height="30">FirstName:</TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="0"  Margin="5">LastName:</TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="0"  Margin="5">Age:</TextBlock>
@@ -90,7 +88,7 @@
 
         </DockPanel>
 
-        <Button Name="Submit" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Content="Add" Margin="5" Click="SubmitProduct"/>
+        <Button Name="Submit" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Content="Save" Margin="5" Click="SubmitProduct"/>
         <!--</SnippetCustomValidation>-->
     </Grid>
 </Window>
